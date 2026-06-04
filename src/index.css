@@ -1,0 +1,420 @@
+/* ============================================
+   GLOBAL RESET & TRANSITION
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    opacity 250ms ease;
+}
+
+/* ============================================
+   DARK THEME
+   ============================================ */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-root:        #090C14;
+  --bg-primary:     #0F1221;
+  --bg-secondary:   #151929;
+  --bg-card:        #1A1F35;
+  --bg-elevated:    #202640;
+  --bg-hover:       #252B45;
+  --bg-input:       #1A1F35;
+  --bg-input-focus: #1E2440;
+
+  /* Text */
+  --text-primary:   #EEF2FF;
+  --text-secondary: #8B93B0;
+  --text-muted:     #4B5270;
+  --text-on-accent: #FFFFFF;
+  --text-link:      #818CF8;
+
+  /* Borders */
+  --border-subtle:  rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong:  rgba(255, 255, 255, 0.18);
+  --border-accent:  rgba(99, 102, 241, 0.50);
+  --border-input:   rgba(255, 255, 255, 0.12);
+  --border-input-focus: rgba(99, 102, 241, 0.70);
+
+  /* Accent / Brand */
+  --accent:         #6366F1;
+  --accent-hover:   #818CF8;
+  --accent-subtle:  rgba(99, 102, 241, 0.15);
+  --accent-glow:    rgba(99, 102, 241, 0.25);
+
+  /* Status */
+  --success:        #10B981;
+  --success-bg:     rgba(16, 185, 129, 0.12);
+  --success-text:   #6EE7B7;
+  --warning:        #F59E0B;
+  --warning-bg:     rgba(245, 158, 11, 0.12);
+  --warning-text:   #FCD34D;
+  --danger:         #F43F5E;
+  --danger-bg:      rgba(244, 63, 94, 0.12);
+  --danger-text:    #FDA4AF;
+  --info:           #38BDF8;
+  --info-bg:        rgba(56, 189, 248, 0.12);
+  --info-text:      #7DD3FC;
+
+  /* Shadows */
+  --shadow-sm:      0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md:      0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-card:    0 2px 12px rgba(0, 0, 0, 0.4);
+
+  /* Sidebar */
+  --sidebar-bg:     #0C0F1E;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --nav-item-hover: rgba(255, 255, 255, 0.05);
+  --nav-item-active-bg: rgba(99, 102, 241, 0.15);
+  --nav-item-active-text: #818CF8;
+
+  /* Scrollbar */
+  --scrollbar-track: #0F1221;
+  --scrollbar-thumb: #2A2F4A;
+
+  /* Legacy compat */
+  --glass-bg: rgba(22, 27, 46, 0.7);
+  --glass-border: rgba(99, 102, 241, 0.15);
+  --glass-shadow: 0 0 30px rgba(99, 102, 241, 0.08);
+  --calendar-invert: 1;
+  --modal-overlay: rgba(0,0,0,0.6);
+  --modal-bg: var(--bg-card);
+  --border-color: var(--border-default);
+}
+
+/* ============================================
+   LIGHT THEME — FULLY SEPARATE, NEVER INHERIT DARK
+   ============================================ */
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-root:        #F0F2F8;
+  --bg-primary:     #F5F7FC;
+  --bg-secondary:   #EAECF5;
+  --bg-card:        #FFFFFF;
+  --bg-elevated:    #FFFFFF;
+  --bg-hover:       #F0F2FA;
+  --bg-input:       #FFFFFF;
+  --bg-input-focus: #FAFBFF;
+
+  /* Text — ALL FULLY DARK, NEVER REUSE DARK THEME COLORS */
+  --text-primary:   #0D1117;
+  --text-secondary: #404969;
+  --text-muted:     #7B8199;
+  --text-on-accent: #FFFFFF;
+  --text-link:      #4F46E5;
+
+  /* Borders — FULLY VISIBLE ON WHITE */
+  --border-subtle:  rgba(0, 0, 0, 0.06);
+  --border-default: rgba(0, 0, 0, 0.11);
+  --border-strong:  rgba(0, 0, 0, 0.20);
+  --border-accent:  rgba(79, 70, 229, 0.40);
+  --border-input:   rgba(0, 0, 0, 0.15);
+  --border-input-focus: rgba(79, 70, 229, 0.60);
+
+  /* Accent / Brand */
+  --accent:         #4F46E5;
+  --accent-hover:   #4338CA;
+  --accent-subtle:  rgba(79, 70, 229, 0.08);
+  --accent-glow:    rgba(79, 70, 229, 0.15);
+
+  /* Status — DARKER TONES FOR LIGHT BG */
+  --success:        #059669;
+  --success-bg:     rgba(5, 150, 105, 0.08);
+  --success-text:   #065F46;
+  --warning:        #D97706;
+  --warning-bg:     rgba(217, 119, 6, 0.08);
+  --warning-text:   #92400E;
+  --danger:         #DC2626;
+  --danger-bg:      rgba(220, 38, 38, 0.08);
+  --danger-text:    #991B1B;
+  --info:           #0284C7;
+  --info-bg:        rgba(2, 132, 199, 0.08);
+  --info-text:      #075985;
+
+  /* Shadows — VISIBLE ON LIGHT */
+  --shadow-sm:      0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:      0 4px 16px rgba(0, 0, 0, 0.10);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.14);
+  --shadow-card:    0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--border-subtle);
+
+  /* Sidebar */
+  --sidebar-bg:     #FFFFFF;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --nav-item-hover: rgba(0, 0, 0, 0.04);
+  --nav-item-active-bg: rgba(79, 70, 229, 0.08);
+  --nav-item-active-text: #4F46E5;
+
+  /* Scrollbar */
+  --scrollbar-track: #EAECF5;
+  --scrollbar-thumb: #C5C8DC;
+
+  /* Legacy compat */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --calendar-invert: 0;
+  --modal-overlay: rgba(15, 17, 23, 0.45);
+  --modal-bg: var(--bg-card);
+  --border-color: var(--border-default);
+}
+
+/* ============================================
+   TYPOGRAPHY TOKENS
+   ============================================ */
+:root {
+  --font-heading: 'Outfit', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --text-xs:    11px;
+  --text-sm:    13px;
+  --text-base:  15px;
+  --text-md:    16px;
+  --text-lg:    18px;
+  --text-xl:    22px;
+  --text-2xl:   28px;
+  --text-3xl:   36px;
+
+  --weight-normal:  400;
+  --weight-medium:  500;
+  --weight-semi:    600;
+  --weight-bold:    700;
+
+  --leading-tight:  1.3;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
+
+  /* Spacing scale */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+
+  /* Radius */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+  --radius-full: 9999px;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+
+/* ============================================
+   BASE ELEMENT DEFAULTS
+   ============================================ */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+html, body {
+  background-color: var(--bg-root);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+h1 { font-size: var(--text-2xl); font-weight: var(--weight-bold); }
+h2 { font-size: var(--text-xl); font-weight: var(--weight-semi); }
+h3 { font-size: var(--text-lg); font-weight: var(--weight-semi); }
+
+p, span, li, td, th, label {
+  color: var(--text-primary);
+}
+
+a { color: var(--text-link); }
+
+code, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITY CLASSES
+   ============================================ */
+.text-primary   { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted     { color: var(--text-muted); }
+.text-xs   { font-size: var(--text-xs); }
+.text-sm   { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg   { font-size: var(--text-lg); }
+.text-xl   { font-size: var(--text-xl); }
+
+/* Light mode text overrides */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] p,
+[data-theme="light"] span,
+[data-theme="light"] label,
+[data-theme="light"] td,
+[data-theme="light"] th,
+[data-theme="light"] li,
+[data-theme="light"] .text-primary   { color: var(--text-primary); }
+[data-theme="light"] .text-secondary { color: var(--text-secondary); }
+[data-theme="light"] .text-muted     { color: var(--text-muted); }
+
+/* ============================================
+   GLASS CARD (Legacy compat)
+   ============================================ */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: all 300ms ease;
+}
+
+.glass-card:hover {
+  border-color: var(--border-default);
+}
+
+/* ============================================
+   SHIMMER / SKELETON ANIMATION
+   ============================================ */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 25%,
+    var(--bg-elevated) 50%,
+    var(--bg-secondary) 75%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-text { height: 14px; width: 100%; }
+.skeleton-text.short { width: 40%; }
+.skeleton-text.medium { width: 65%; }
+.skeleton-title { height: 20px; width: 50%; }
+.skeleton-avatar { width: 44px; height: 44px; border-radius: 50%; }
+.skeleton-card { height: 100px; width: 100%; border-radius: var(--radius-xl); }
+.skeleton-row { height: 52px; width: 100%; border-radius: 0; }
+
+/* ============================================
+   PULSE DOT
+   ============================================ */
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.3; }
+  70%  { transform: scale(2); opacity: 0; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ============================================
+   TODAY MARKER
+   ============================================ */
+.today-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  z-index: 10;
+}
+
+/* ============================================
+   CUSTOM INPUT STYLES
+   ============================================ */
+input, select, textarea {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(var(--calendar-invert));
+}
+
+/* ============================================
+   BUTTON ACTIVE STATE
+   ============================================ */
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: var(--accent-glow);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   LIGHT MODE SPECIFIC OVERRIDES
+   ============================================ */
+
+/* Sidebar in light mode */
+[data-theme="light"] .glass-card {
+  background: var(--bg-card);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+/* Light mode table fix */
+[data-theme="light"] select option {
+  background: #FFFFFF;
+  color: #0D1117;
+}
+
+/* Light mode form inputs */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  color: var(--text-primary);
+}
+
+/* ============================================
+   TAILWIND IMPORT (must be at end for compat)
+   ============================================ */
+@import "tailwindcss";
